@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f5e9;
+      color: #2a5d2a;
+      margin: 0;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #2a5d2a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    #countdownDisplay {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 20px;
+    }
+    #startCountdownBtn {
+      padding: 10px;
+      background-color: #2a5d2a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #startCountdownBtn:hover {
+      background-color: #1b3e1b;
+    }
+  </style>
+</head>
+<body>
+
+<header>Countdown Timer</header>
+
+<input type="datetime-local" id="countdownInput" />
+<button id="startCountdownBtn">Start Countdown</button>
+<div id="countdownDisplay"></div>
+
+<script>
+  const countdownInput = document.getElementById('countdownInput');
+  const startCountdownBtn = document.getElementById('startCountdownBtn');
+  const countdownDisplay = document.getElementById('countdownDisplay');
+  let countdownInterval;
+
+  startCountdownBtn.addEventListener('click', () => {
+    clearInterval(countdownInterval);
+    const targetTime = new Date(countdownInput.value).getTime();
+    if (isNaN(targetTime)) {
+      countdownDisplay.textContent = 'Please select a valid date and time.';
+      return;
+    }
+    countdownInterval = setInterval(() => {
+      const now = Date.now();
+      const diff = targetTime - now;
+      if (diff <= 0) {
+        clearInterval(countdownInterval);
+        countdownDisplay.textContent = "Time's up!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      countdownDisplay.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+  });
+</script>
+
+</body>
+</html>

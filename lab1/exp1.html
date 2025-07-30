@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Number Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f5e9;
+      color: #2a5d2a;
+      margin: 0;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #2a5d2a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    section {
+      max-width: 480px;
+      background: white;
+      margin: 30px auto;
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(42, 93, 42, 0.3);
+    }
+    section h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      border: 2px solid #2a5d2a;
+      outline: none;
+    }
+    button {
+      background: #2a5d2a;
+      color: white;
+    }
+    button:hover {
+      background: #1b3e1b;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>Number Guessing Game</header>
+
+<section id="numberGuessing">
+  <h2>Guess a Number Between 1 and 100</h2>
+  <input type="number" id="guess-input" placeholder="Enter 1-100" min="1" max="100" />
+  <button id="guess-btn">Guess</button>
+  <div id="result"></div>
+</section>
+
+<script>
+  const randomNumber = Math.floor(Math.random() * 100) + 1;
+  const guessInput = document.getElementById('guess-input');
+  const guessBtn = document.getElementById('guess-btn');
+  const result = document.getElementById('result');
+
+  guessBtn.addEventListener('click', () => {
+    const guess = Number(guessInput.value);
+    if (!guess || guess < 1 || guess > 100) {
+      result.textContent = 'Please enter a valid number between 1 and 100.';
+      return;
+    }
+    if (guess === randomNumber) {
+      result.textContent = 'Correct! You guessed the number!';
+    } else if (guess > randomNumber) {
+      result.textContent = 'Too High';
+    } else {
+      result.textContent = 'Too Low';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f5e9;
+      color: #2a5d2a;
+      margin: 0;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #2a5d2a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    .calculator {
+      display: grid;
+      grid-template-columns: repeat(4, 70px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 50px;
+    }
+    .calculator input {
+      grid-column: span 4;
+      text-align: right;
+      font-size: 1.5rem;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #2a5d2a;
+      outline: none;
+    }
+    .calculator button {
+      font-size: 1.5rem;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #2a5d2a;
+      cursor: pointer;
+    }
+    .calculator button:hover {
+      background: #1b3e1b;
+      color: white;
+    }
+    #clearBtn {
+      background-color: #e53935;
+      color: white;
+    }
+    #equalBtn {
+      background-color: #2a5d2a;
+      color: white;
+      grid-column: span 4;
+    }
+  </style>
+</head>
+<body>
+
+<header>Simple Calculator</header>
+
+<div class="calculator">
+  <input type="text" id="calcDisplay" readonly />
+  <button class="calc-btn">7</button>
+  <button class="calc-btn">8</button>
+  <button class="calc-btn">9</button>
+  <button class="calc-btn">/</button>
+  <button class="calc-btn">4</button>
+  <button class="calc-btn">5</button>
+  <button class="calc-btn">6</button>
+  <button class="calc-btn">*</button>
+  <button class="calc-btn">1</button>
+  <button class="calc-btn">2</button>
+  <button class="calc-btn">3</button>
+  <button class="calc-btn">-</button>
+  <button class="calc-btn">0</button>
+  <button class="calc-btn">.</button>
+  <button id="clearBtn">C</button>
+  <button class="calc-btn">+</button>
+  <button id="equalBtn">=</button>
+</div>
+
+<script>
+  const calcDisplay = document.getElementById('calcDisplay');
+  const calcButtons = document.querySelectorAll('.calc-btn');
+  const clearBtn = document.getElementById('clearBtn');
+  const equalBtn = document.getElementById('equalBtn');
+  let expression = '';
+
+  calcButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      expression += btn.textContent;
+      calcDisplay.value = expression;
+    });
+  });
+
+  clearBtn.addEventListener('click', () => {
+    expression = '';
+    calcDisplay.value = '';
+  });
+
+  equalBtn.addEventListener('click', () => {
+    try {
+      expression = eval(expression).toString();
+      calcDisplay.value = expression;
+    } catch {
+      calcDisplay.value = 'Error';
+      expression = '';
+    }
+  });
+</script>
+
+</body>
+</html>

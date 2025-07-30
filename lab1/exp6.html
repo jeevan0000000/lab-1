@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Form Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f5e9;
+      color: #2a5d2a;
+      margin: 0;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #2a5d2a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    form {
+      max-width: 480px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input, button {
+      font-size: 1.1rem;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 2px solid #2a5d2a;
+      outline: none;
+    }
+    button {
+      background-color: #2a5d2a;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1b3e1b;
+    }
+    #formMessage {
+      margin-top: 10px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<header>Form Validation</header>
+
+<form id="validationForm" novalidate>
+  <label>Email:<br /><input type="email" id="email" required /></label><br />
+  <label>Password:<br /><input type="password" id="password" required /></label><br />
+  <button type="submit">Submit</button>
+  <div id="formMessage"></div>
+</form>
+
+<script>
+  const form = document.getElementById('validationForm');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const formMessage = document.getElementById('formMessage');
+
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function validatePassword(pw) {
+    return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(pw);
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    
+    if (!validateEmail(email)) {
+      formMessage.textContent = 'Invalid email address.';
+      formMessage.style.color = 'red';
+      return;
+    }
+    if (!validatePassword(password)) {
+      formMessage.textContent = 'Password must be at least 6 characters, including letters and numbers.';
+      formMessage.style.color = 'red';
+      return;
+    }
+
+    formMessage.textContent = 'Form submitted successfully!';
+    formMessage.style.color = 'green';
+  });
+</script>
+
+</body>
+</html>

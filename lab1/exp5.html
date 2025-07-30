@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color Picker App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f5e9;
+      color: #2a5d2a;
+      margin: 0;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #2a5d2a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    #colorPickerPreview {
+      width: 100%;
+      height: 80px;
+      margin-top: 15px;
+      border-radius: 12px;
+      border: 2px solid #2a5d2a;
+    }
+  </style>
+</head>
+<body>
+
+<header>Color Picker App</header>
+
+<input type="color" id="colorPicker" />
+<div id="colorPickerPreview"></div>
+
+<script>
+  const colorPicker = document.getElementById('colorPicker');
+  const colorPreview = document.getElementById('colorPickerPreview');
+
+  colorPicker.addEventListener('input', (e) => {
+    colorPreview.style.backgroundColor = e.target.value;
+  });
+</script>
+
+</body>
+</html>

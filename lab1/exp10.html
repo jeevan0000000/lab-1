@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rock-Paper-Scissors Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f5e9;
+      color: #2a5d2a;
+      margin: 0;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #2a5d2a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    #rpsChoices button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      background-color: #2a5d2a;
+      color: white;
+      border-radius: 8px;
+      border: none;
+    }
+    #rpsChoices button:hover {
+      background-color: #1b3e1b;
+    }
+    #rpsResult {
+      margin-top: 20px;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<header>Rock-Paper-Scissors Game</header>
+
+<div id="rpsChoices">
+  <button data-choice="rock">Rock</button>
+  <button data-choice="paper">Paper</button>
+  <button data-choice="scissors">Scissors</button>
+</div>
+
+<div id="rpsResult"></div>
+
+<script>
+  const rpsChoices = document.querySelectorAll('#rpsChoices button');
+  const rpsResult = document.getElementById('rpsResult');
+
+  function getComputerChoice() {
+    const choices = ['rock','paper','scissors'];
+    return choices[Math.floor(Math.random() * choices.length)];
+  }
+
+  function getWinner(user, computer) {
+    if(user === computer) return "It's a tie!";
+    if(
+      (user === 'rock' && computer === 'scissors') ||
+      (user === 'paper' && computer === 'rock') ||
+      (user === 'scissors' && computer === 'paper')
+    ) return 'You win!';
+    return 'Computer wins!';
+  }
+
+  rpsChoices.forEach(button => {
+    button.addEventListener('click', () => {
+      const userChoice = button.getAttribute('data-choice');
+      const computerChoice = getComputerChoice();
+      const winner = getWinner(userChoice, computerChoice);
+      rpsResult.textContent = `You chose ${userChoice}. Computer chose ${computerChoice}. ${winner}`;
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dice Roller</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f5e9;
+      color: #2a5d2a;
+      margin: 0;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #2a5d2a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    #diceContainer {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
+    .dice {
+      width: 80px;
+      height: 80px;
+    }
+    #diceResult {
+      font-weight: 600;
+      font-size: 1.3rem;
+      text-align: center;
+      margin-top: 15px;
+    }
+    #rollDiceBtn {
+      padding: 10px;
+      background-color: #2a5d2a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #rollDiceBtn:hover {
+      background-color: #1b3e1b;
+    }
+  </style>
+</head>
+<body>
+
+<header>Dice Roller</header>
+
+<button id="rollDiceBtn">Roll Dice</button>
+<div id="diceContainer">
+  <canvas class="dice" id="dice1" width="80" height="80"></canvas>
+  <canvas class="dice" id="dice2" width="80" height="80"></canvas>
+</div>
+<div id="diceResult"></div>
+
+<script>
+  const rollDiceBtn = document.getElementById('rollDiceBtn');
+  const dice1 = document.getElementById('dice1').getContext('2d');
+  const dice2 = document.getElementById('dice2').getContext('2d');
+  const diceResult = document.getElementById('diceResult');
+
+  function drawDice(ctx, number) {
+    ctx.clearRect(0, 0, 80, 80);
+    ctx.fillStyle = '#2a5d2a';
+    ctx.fillRect(5, 5, 70, 70);
+    ctx.fillStyle = '#e8f5e9';
+    const dot = 10;
+    const positions = {
+      1: [[35,35]],
+      2: [[20,20],[50,50]],
+      3: [[20,20],[35,35],[50,50]],
+      4: [[20,20],[20,50],[50,20],[50,50]],
+      5: [[20,20],[20,50],[35,35],[50,20],[50,50]],
+      6: [[20,20],[20,35],[20,50],[50,20],[50,35],[50,50]]
+    };
+    positions[number].forEach(pos => {
+      ctx.beginPath();
+      ctx.arc(pos[0], pos[1], dot, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  rollDiceBtn.addEventListener('click', () => {
+    const num1 = Math.floor(Math.random() * 6) +1;
+    const num2 = Math.floor(Math.random() * 6) +1;
+    drawDice(dice1, num1);
+    drawDice(dice2, num2);
+    diceResult.textContent = `You rolled ${num1} and ${num2} (Total: ${num1 + num2})`;
+  });
+</script>
+
+</body>
+</html>
